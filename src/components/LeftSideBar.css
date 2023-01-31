@@ -1,0 +1,46 @@
+.rectangle-1{
+    background-color: #5a57ff;
+    border-radius: 0px 40px 40px 0px;
+    height:60vmax;
+    width: 15vmax;
+    padding: 0%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Logo{
+align-items: center;
+display: flex;
+gap:10px;
+padding: 30px 20px 80px 20px;
+
+}
+.icono{
+    width: 4vmin;
+}
+
+.tittle{
+    color: white;
+    font-weight: 700;
+    font-size: large;
+    line-height: normal;
+    align-items: ce;
+}
+
+.rectangle-logo{
+    border:  8px solid;
+    border-color: white;
+    height: 16px;
+    width: 22px;
+}
+.groupButton{
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px 20px 20px;
+}
+.BtnTittle{
+    letter-spacing: 0;
+    color: white;
+    font-size: 3vmin;
+}

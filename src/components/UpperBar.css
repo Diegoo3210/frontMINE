@@ -1,0 +1,22 @@
+.Logo-Uni{
+    height: 15vmin;
+
+}
+
+.group-Logo-Uniandes{
+    align-content:flex-end;
+    align-items: center;
+    display: flex;
+    align-self: flex-end;
+   
+}
+.sizeBox{
+    width: 60vmax;
+
+}
+.alig{
+    display: flex;
+    align-items: flex-end;
+    align-self: flex-end;
+    justify-content: end;
+}
