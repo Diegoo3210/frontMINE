@@ -1,4 +1,4 @@
-function DashBoard(){
-    return (<h1>DashBoard</h1>);
+function DashBoard(props){
+    return (<h1>{props.tittle}</h1>);
 }
 export default DashBoard;
