@@ -7,7 +7,7 @@ function UpperBar(){
         <div className="group-Logo-Uniandes">
             <div className="sizeBox"></div>
             <div className="mine">MINE-4201</div>
-            <img className="Logo-Uni" alt="logo" src={uni}/>
+            <a className ="link" href= "https://uniandes.edu.co/"><img className="Logo-Uni" alt="logo" src={uni}/></a>
         </div>
     </div>);
 }

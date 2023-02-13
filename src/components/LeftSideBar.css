@@ -1,24 +1,20 @@
 .rectangle-1{
-    background-color: #5a57ff;
-    border-radius: 0px 40px 40px 0px;
-    height:60vmax;
-    width: 15vmax;
-    padding: 0%;
-    flex-direction: column;
-    justify-content: center;
+  
 }
 
 .Logo{
 align-items: center;
 display: flex;
 gap:10px;
-padding: 30px 20px 80px 20px;
+padding: 30px 20px 30px 20px;
 
 }
 .icono{
     width: 4vmin;
 }
-
+.sizedBox{
+    height: 20px;
+}
 .tittle{
     color: white;
     font-weight: 700;
@@ -40,12 +36,70 @@ padding: 30px 20px 80px 20px;
     padding: 10px 20px 20px 20px;
 }
 .BtnTittle{
-    letter-spacing: 0;
     color: white;
-    font-size: 3vmin;
-}
 
+}
+nav {
+    background-color: #5a57ff;
+    border-radius: 0px 40px 40px 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+
+    top: 0;
+    left: 0;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+  }
+  
+  nav li {
+    margin: 10px 0;
+    width: 100%;
+  }
+  
+  nav a {
+
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: transparent;
+    transition: background-color 0.5s;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 25px;
+    text-align: center;
+    width: 85%;
+  }
+  
+  nav a:hover {
+    background-color: lightgray;
+  }
+#noLink{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: transparent;
+}
+#noLink :hover {
+    background-color: transparent;
+
+  }
+  
 .link{
     color: #FF0000;
     text-decoration: none;
 }
+
+@media (min-width: 768px) {
+    nav li {
+      flex-basis: auto;
+    }
+  }

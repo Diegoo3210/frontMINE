@@ -1,0 +1,10 @@
+.row{
+    display: flex;
+    justify-content: space-between;
+    
+    
+};
+.sizedBox{
+    width: 300px;
+    height: 100%;
+}
