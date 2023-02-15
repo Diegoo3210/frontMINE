@@ -1,10 +1,49 @@
 .row{
     display: flex;
     justify-content: space-between;
-    
-    
+
 };
 .sizedBox{
     width: 300px;
     height: 100%;
+}
+.icon-bar {
+  width: 90%; /* Full-width */
+  background-color: #555; /* Dark-grey background */
+  overflow: auto; /* Overflow due to float */
+  border-radius: 10px;
+}
+
+.icon-bar button {
+  float: left; /* Float links side by side */
+  text-align: center; /* Center-align text */
+  width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
+  padding: 12px 0; /* Some top and bottom padding */
+  transition: all 0.3s ease; /* Add transition for hover effects */
+  color: white; /* White text color */
+  font-size: 24px; /* Increased font size */
+}
+
+.icon-bar button:hover {
+  background-color: #000; /* Add a hover color */
+}
+
+.icon-bar span {
+  float: left; /* Float links side by side */
+  text-align: center; /* Center-align text */
+  width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
+  padding: 12px 0; /* Some top and bottom padding */
+  transition: all 0.3s ease; /* Add transition for hover effects */
+  color: white; /* White text color */
+  font-size: 24px; /* Increased font size */
+}
+
+.icon-bar span:hover {
+  background-color: #000; /* Add a hover color */
+}
+.active {
+  background-color: #5a57ff; /* Add an active/current color */
+}
+.display{
+  width: 40px;
 }

@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 function OpcionA() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/getRequest/A')
+    fetch("http://127.0.0.1:8000/getRequest/A"
+    ,{    mode: 'cors', // no-cors, *cors, same-origin
+  })
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -21,7 +22,7 @@ function OpcionA() {
   }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div>{}Loading...</div>;
   }
 
   return <div>{JSON.stringify(data)}</div>;

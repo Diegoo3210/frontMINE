@@ -5,7 +5,7 @@ function LeftSideBar() {
   return (
     <div>
       <div className="rectangle-1">
-
+        <div className="fixed">
         <nav>
           <ul>
             <li>
@@ -42,7 +42,10 @@ function LeftSideBar() {
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> </div>
+
+        <div className="remaining">
+        </div>
       </div>
     </div>
   );

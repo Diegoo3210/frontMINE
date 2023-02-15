@@ -15,19 +15,51 @@ const options = [
   { value: "Option E", label: "Option 2", component: Option2 },
   { value: "Option F", label: "Option 2", component: Option2 },
   { value: "Option G", label: "Option 2", component: Option2 },
-
 ];
 
 function Taller1() {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  var dir = "http://127.0.0.1:8000/getRequest";
 
-  const handleChange = (event) => {
-    setSelectedOption(options.find((o) => o.value === event.target.value));
+  const icons = [
+    "http://127.0.0.1:8000/getRequest/A",
+    "http://127.0.0.1:8000/getRequest/B",
+
+  ];
+  const iconLinks = document.querySelectorAll(".icon-bar a");
+
+  iconLinks.forEach((link) => {
+    link.addEventListener("click", function (event) {
+      // Prevent the default link behavior
+      event.preventDefault();
+
+      // Remove the active class from all links
+      iconLinks.forEach((link) => {
+        link.classList.remove("active");
+      });
+
+      // Add the active class to the clicked link
+      this.classList.add("active");
+    });
+  });
+
+  const [active, setActive] = useState(0);
+  const handleIconClick = (index) => {
+    setActive(index);
   };
-  const SelectedScreen = selectedOption.component;
+  const [data, setData] = useState(null);
 
+  const handleClick = (url) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error));
+  };
+
+  const buttonFunt = (index, url) => {
+    handleClick(url);
+    handleIconClick(index);
+  }
   return (
-    
     <div className="row">
       <LeftSideBar />
       <div className="sizeBox"></div>
@@ -35,17 +67,20 @@ function Taller1() {
       <div className="col">
         <UpperBar />
         <DashBoard tittle="Taller1" />
-        <div>
-          <div>Selccione que requerimeinto desea correr</div>
-          <select value={selectedOption.value} onChange={handleChange}>
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <SelectedScreen />
+
+        <h4>Por Favor Seleccione Una opcion</h4>
+
+        <div className="icon-bar">
+          {icons.map((icon, index) => (
+            <span
+              className={active === index ? "active" : ""}
+              onClick={() => buttonFunt(index, icon)}
+            >
+              <div class="fa fa-home">{icon.substring(icon.lastIndexOf("/")+1)}</div>
+            </span>
+          ))}
         </div>
+        <div className="display">{JSON.stringify(data)} </div>
       </div>
     </div>
   );

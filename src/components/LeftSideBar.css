@@ -1,5 +1,5 @@
 .rectangle-1{
-  
+  height: 100%;
 }
 
 .Logo{
@@ -42,7 +42,7 @@ padding: 30px 20px 30px 20px;
 nav {
     background-color: #5a57ff;
     border-radius: 0px 40px 40px 0px;
-    height: 100%;
+    height: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,6 +96,10 @@ nav {
 .link{
     color: #FF0000;
     text-decoration: none;
+}
+.remainig{
+  background-color: #6a9cff;
+  flex-grow : 1;
 }
 
 @media (min-width: 768px) {
