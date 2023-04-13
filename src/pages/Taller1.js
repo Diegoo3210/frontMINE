@@ -2,7 +2,6 @@ import LeftSideBar from "../components/LeftSideBar";
 import UpperBar from "../components/UpperBar";
 import DashBoard from "../components/DashBoard";
 import React, { useState } from "react";
-import OpcionA from "../components/OpcionA";
 import "./Taller1.css";
 
 function Taller1() {
@@ -29,6 +28,18 @@ function Taller1() {
     "Personalizar 2 ",
   ];
   const iconLinks = document.querySelectorAll(".icon-bar a");
+
+  const dataHeat = [
+    { x: 0, y: 0, value: 1 },
+    { x: 0, y: 1, value: 2 },
+    { x: 0, y: 2, value: 3 },
+    { x: 1, y: 0, value: 4 },
+    { x: 1, y: 1, value: 5 },
+    { x: 1, y: 2, value: 6 },
+    { x: 2, y: 0, value: 7 },
+    { x: 2, y: 1, value: 8 },
+    { x: 2, y: 2, value: 9 },
+  ];
 
   iconLinks.forEach((link) => {
     link.addEventListener("click", function (event) {
@@ -62,6 +73,13 @@ function Taller1() {
     handleClick(url);
     handleIconClick(index);
   };
+
+  const handleAnswer = (data) => {
+    if (active === 4) {
+      return <div>hola</div>;
+    }
+    return <div>{data}</div>;
+  };
   return (
     <div className="row">
       <LeftSideBar />
@@ -87,7 +105,7 @@ function Taller1() {
         </div>
         <div className="display">
           <p>{bsQuestions[active]}</p>
-          {JSON.stringify(data)}
+          {handleAnswer(JSON.stringify(data))}
         </div>
       </div>
     </div>
