@@ -5,25 +5,28 @@ import React, { useState } from "react";
 import OpcionA from "../components/OpcionA";
 import "./Taller1.css";
 
-const Option2 = () => <div>Option 2 Screen</div>;
-const Option3 = () => <div>Option 3 Screen</div>;
-const options = [
-  { value: "Option A", label: "Option ", component: OpcionA },
-  { value: "Option B", label: "Option 2", component: Option2 },
-  { value: "Option C", label: "Option 3", component: Option3 },
-  { value: "Option D", label: "Option 2", component: Option2 },
-  { value: "Option E", label: "Option 2", component: Option2 },
-  { value: "Option F", label: "Option 2", component: Option2 },
-  { value: "Option G", label: "Option 2", component: Option2 },
-];
-
 function Taller1() {
   var dir = "http://127.0.0.1:8000/getRequest";
 
-  const icons = [
+  const links = [
     "http://127.0.0.1:8000/getRequest/A",
     "http://127.0.0.1:8000/getRequest/B",
+    "http://127.0.0.1:8000/getRequest/C",
+    "http://127.0.0.1:8000/getRequest/D",
+    "http://127.0.0.1:8000/getRequest/E",
+    "http://127.0.0.1:8000/getRequest/F",
+    "http://127.0.0.1:8000/getRequest/F",
+  ];
+  const opctionName = ["BQ1", "BQ2", "BQ3", "BQ4", "BQ5", "PBQ1", "PBQ2"];
 
+  const bsQuestions = [
+    "¿Cuál es el estado con mayor tráfico de botes en un periodo dado?",
+    "¿Cuál es el tipo de carga más común por estado, en un periodo dado?",
+    "¿Qué tanto afectó la pandemia al tráfico de embarcaciones teniendo en cuenta el número de embarcaciones por mes en cada estado en años anteriores?",
+    "¿Cómo es la distribución geográfica, en un periodo dado, de las embarcaciones?",
+    "¿Existe alguna relación entre el día de la semana y el tipo de carga en cada estado?¿La relación cambia por año?",
+    "Personalizar ",
+    "Personalizar 2 ",
   ];
   const iconLinks = document.querySelectorAll(".icon-bar a");
 
@@ -58,11 +61,10 @@ function Taller1() {
   const buttonFunt = (index, url) => {
     handleClick(url);
     handleIconClick(index);
-  }
+  };
   return (
     <div className="row">
       <LeftSideBar />
-      <div className="sizeBox"></div>
 
       <div className="col">
         <UpperBar />
@@ -70,17 +72,23 @@ function Taller1() {
 
         <h4>Por Favor Seleccione Una opcion</h4>
 
-        <div className="icon-bar">
-          {icons.map((icon, index) => (
-            <span
-              className={active === index ? "active" : ""}
-              onClick={() => buttonFunt(index, icon)}
-            >
-              <div class="fa fa-home">{icon.substring(icon.lastIndexOf("/")+1)}</div>
-            </span>
-          ))}
+        <div className="icon-bar-wrapper">
+          {" "}
+          <div className="icon-bar">
+            {links.map((icon, index) => (
+              <span
+                className={active === index ? "active" : ""}
+                onClick={() => buttonFunt(index, icon)}
+              >
+                <div class="btn-tittle">{opctionName[index]}</div>
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="display">{JSON.stringify(data)} </div>
+        <div className="display">
+          <p>{bsQuestions[active]}</p>
+          {JSON.stringify(data)}
+        </div>
       </div>
     </div>
   );
