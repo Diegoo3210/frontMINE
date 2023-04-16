@@ -3,6 +3,7 @@ import UpperBar from "../components/UpperBar";
 import DashBoard from "../components/DashBoard";
 import React, { useState } from "react";
 import "./Taller1.css";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function Taller1() {
   var dir = "http://127.0.0.1:8000/getRequest";
@@ -75,10 +76,22 @@ function Taller1() {
   };
 
   const handleAnswer = (data) => {
-    if (active === 4) {
+    if (active === 0) {
+      return (
+        <div>
+          <DatePicker label="Basic date picker" />
+        </div>
+      );
+    } else if (active === 4) {
       return <div>hola</div>;
     }
     return <div>{data}</div>;
+  };
+
+  const handleInputs = () => {
+    if (active === 0) {
+      return <div></div>;
+    }
   };
   return (
     <div className="row">
@@ -106,6 +119,7 @@ function Taller1() {
         <div className="display">
           <p>{bsQuestions[active]}</p>
           {handleAnswer(JSON.stringify(data))}
+          {handleInputs()}
         </div>
       </div>
     </div>

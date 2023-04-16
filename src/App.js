@@ -15,7 +15,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/Tarea1" element={<Taller1 />} />
           <Route path="/Taller1" element={<Taller1 />} />
         </Routes>
       </BrowserRouter>
