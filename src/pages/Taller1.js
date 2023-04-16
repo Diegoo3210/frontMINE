@@ -2,10 +2,53 @@ import LeftSideBar from "../components/LeftSideBar";
 import UpperBar from "../components/UpperBar";
 import DashBoard from "../components/DashBoard";
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./Taller1.css";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
+import CustomDatePicker from "../components/datePicker/CustomDatePicker";
+import ColumnChart from "../components/charts/columnChart";
 function Taller1() {
+  // Column chart     ___________________________________________________________________________________
+
+  const dataChart = [
+    ["Meses ", "datos1", "datos2"],
+    ["Febrero", 200, -200],
+    ["Marzo", 600, -200],
+    ["Abril", 200, -200],
+    ["Mayo", 300, -200],
+    ["Junio", 100, 200],
+  ];
+  //_____________________________________________________________________________________________________
+
+  // Date Pickers Vars___________________________________________________________________________________
+  const minValidDate = new Date("01/01/2017");
+  const maxValidDate = new Date("01/01/2021");
+  const [dateValidatior, setDateValidator] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [year, setYear] = useState("2023");
+  const [month, setMoth] = useState("May");
+  const years = ["2017", "2018", "2019", "2020", "2021", "2022"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const [year2, setYear2] = useState("2023");
+  const [month2, setMoth2] = useState("May");
+
+  //_____________________________________________________________________________________________________
+
   var dir = "http://127.0.0.1:8000/getRequest";
 
   const links = [
@@ -29,18 +72,6 @@ function Taller1() {
     "Personalizar 2 ",
   ];
   const iconLinks = document.querySelectorAll(".icon-bar a");
-
-  const dataHeat = [
-    { x: 0, y: 0, value: 1 },
-    { x: 0, y: 1, value: 2 },
-    { x: 0, y: 2, value: 3 },
-    { x: 1, y: 0, value: 4 },
-    { x: 1, y: 1, value: 5 },
-    { x: 1, y: 2, value: 6 },
-    { x: 2, y: 0, value: 7 },
-    { x: 2, y: 1, value: 8 },
-    { x: 2, y: 2, value: 9 },
-  ];
 
   iconLinks.forEach((link) => {
     link.addEventListener("click", function (event) {
@@ -72,18 +103,183 @@ function Taller1() {
 
   const buttonFunt = (index, url) => {
     handleClick(url);
+    setDateValidator(false);
     handleIconClick(index);
   };
 
+  const handleCalendarDate = () => {
+    console.log(startDate > maxValidDate);
+    console.log(startDate.getTime);
+    if (
+      startDate > minValidDate &&
+      startDate < maxValidDate &&
+      endDate > minValidDate &&
+      endDate < maxValidDate
+    ) {
+      setDateValidator(true);
+    } else {
+      setDateValidator(false);
+    }
+  };
+
   const handleAnswer = (data) => {
-    if (active === 0) {
+    if ((active === 0) | (active === 1)) {
       return (
-        <div>
-          <DatePicker label="Basic date picker" />
+        <div className="col">
+          <div className="row-date-picker">
+            <div className="col-date-picker">
+              <h5>Fecha Inicial</h5>
+              <DatePicker
+                renderCustomHeader={({
+                  date,
+                  changeYear,
+                  changeMonth,
+                  decreaseMonth,
+                  increaseMonth,
+                  prevMonthButtonDisabled,
+                  nextMonthButtonDisabled,
+                }) => (
+                  <div
+                    style={{
+                      margin: 10,
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <button
+                      onClick={decreaseMonth}
+                      disabled={prevMonthButtonDisabled}
+                    >
+                      {"<"}
+                    </button>
+                    <select
+                      value={year}
+                      onChange={({ target: { value } }) => {
+                        changeYear(value);
+                        setYear(value);
+                      }}
+                    >
+                      {years.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      value={month}
+                      onChange={({ target: { value } }) => {
+                        changeMonth(months.indexOf(value));
+                        setMoth(value);
+                      }}
+                    >
+                      {months.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={increaseMonth}
+                      disabled={nextMonthButtonDisabled}
+                    >
+                      {">"}
+                    </button>
+                  </div>
+                )}
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
+            </div>
+            <div className="col-date-picker">
+              <h5>Fecha Final</h5>
+              <DatePicker
+                renderCustomHeader={({
+                  date,
+                  changeYear,
+                  changeMonth,
+                  decreaseMonth,
+                  increaseMonth,
+                  prevMonthButtonDisabled,
+                  nextMonthButtonDisabled,
+                }) => (
+                  <div
+                    style={{
+                      margin: 10,
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <button
+                      onClick={decreaseMonth}
+                      disabled={prevMonthButtonDisabled}
+                    >
+                      {"<"}
+                    </button>
+                    <select
+                      value={year2}
+                      onChange={({ target: { value } }) => {
+                        changeYear(value);
+                        setYear2(value);
+                      }}
+                    >
+                      {years.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      value={month2}
+                      onChange={({ target: { value } }) => {
+                        changeMonth(months.indexOf(value));
+                        setMoth2(value);
+                      }}
+                    >
+                      {months.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={increaseMonth}
+                      disabled={nextMonthButtonDisabled}
+                    >
+                      {">"}
+                    </button>
+                  </div>
+                )}
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+              />
+            </div>
+          </div>
+          <div className="centered">
+            <div className="button" onClick={handleCalendarDate}>
+              Buscar
+            </div>
+          </div>
+          {dateValidatior && (
+            <>
+              <div className="Display">
+                {active === 0 ? (
+                  <>El estado con mas Barcos Es washington</>
+                ) : (
+                  <>La Carga Mas transitada es la tipo 4</>
+                )}
+              </div>
+            </>
+          )}
         </div>
       );
-    } else if (active === 4) {
-      return <div>hola</div>;
+    } else if (active === 2) {
+      return (
+        <div>
+          <ColumnChart data={dataChart}></ColumnChart>
+        </div>
+      );
     }
     return <div>{data}</div>;
   };
@@ -96,7 +292,6 @@ function Taller1() {
   return (
     <div className="row">
       <LeftSideBar />
-
       <div className="col">
         <UpperBar />
         <DashBoard tittle="Taller1" />
@@ -119,7 +314,6 @@ function Taller1() {
         <div className="display">
           <p>{bsQuestions[active]}</p>
           {handleAnswer(JSON.stringify(data))}
-          {handleInputs()}
         </div>
       </div>
     </div>

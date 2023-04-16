@@ -5,6 +5,7 @@ import "./HomePage.css";
 import PersonCard from "../components/personCard/PersonCard";
 import uni from "../asset/logo-uniandes.png";
 import diego_photo from "../asset/DiegoPhoto.png";
+import React from "react";
 
 function HomePage() {
   return (

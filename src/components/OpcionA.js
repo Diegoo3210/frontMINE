@@ -4,15 +4,15 @@ function OpcionA() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/getRequest/A"
-    ,{    mode: 'cors', // no-cors, *cors, same-origin
-  })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
+    fetch("http://127.0.0.1:8000/getRequest/A", {
+      mode: "cors", // no-cors, *cors, same-origin
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
         setData(data);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error);
       });
   }, []);

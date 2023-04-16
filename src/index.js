@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { appRouter } from "./routes/appRouter";
+import { RouterProvider } from "react-router-dom";
 
+import AppProvider from "./Business/Context/AppContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  //row
-  <div>
-      <App/>
-  </div>
+  <>
+    <RouterProvider router={appRouter} />
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
