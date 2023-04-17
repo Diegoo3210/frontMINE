@@ -1,7 +1,7 @@
 import LeftSideBar from "../components/LeftSideBar";
 import UpperBar from "../components/UpperBar";
 import DashBoard from "../components/DashBoard";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Taller1.css";
@@ -9,7 +9,7 @@ import CustomDatePicker from "../components/datePicker/CustomDatePicker";
 import ColumnChart from "../components/charts/columnChart";
 function Taller1() {
   // Column chart     ___________________________________________________________________________________
-  const [yearChartSelector, setYearChartSelector] = "2017";
+  const [yearChartSelector, setYearChartSelector] = useState("2017");
   const dataChart = [
     ["Meses ", "datos1", "datos2"],
     ["Febrero", 200, -200],
@@ -54,9 +54,9 @@ function Taller1() {
   const links = [
     "http://127.0.0.1:8000/getRequest/P1",
     "http://127.0.0.1:8000/getRequest/P2",
-    "http://127.0.0.1:8000/getRequest/P1",
-    "http://127.0.0.1:8000/getRequest/P1",
-    "http://127.0.0.1:8000/getRequest/P1",
+    "http://127.0.0.1:8000/getRequest/P3",
+    "http://127.0.0.1:8000/getRequest/P4",
+    "http://127.0.0.1:8000/getRequest/P5",
     "http://127.0.0.1:8000/getRequest/P1",
     "http://127.0.0.1:8000/getRequest/F",
   ];
@@ -93,16 +93,19 @@ function Taller1() {
     setActive(index);
   };
   const [data, setData] = useState(null);
-
   const handleClick = (url) => {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
         setData(json);
+        setLoadingChart(false);
         console.log(json);
       })
       .catch((error) => console.error(error));
   };
+  useEffect(() => {
+    handleClick();
+  }, []);
 
   const buttonFunt = (index, url) => {
     handleClick(url);
@@ -137,10 +140,22 @@ function Taller1() {
       if (active === 0) {
         if (showAnswer) {
           return (
-            <div className="answer1">
-              {data}
-              {data["State"]}
-            </div>
+            <>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Estado</td>
+                    <td>Botes</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{JSON.parse(data).State}</td>
+                    <td>{JSON.parse(data).count}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </>
           );
         }
       }
@@ -149,13 +164,13 @@ function Taller1() {
           return (
             <div className="answer2">
               {data}
-              {data["State"]}
+              {data[10]}
             </div>
           );
         }
       }
       if (active === 2) {
-        setData(data[{ yearChartSelector }]);
+        console.log(data[yearChartSelector]);
       }
     }
   };
@@ -163,6 +178,7 @@ function Taller1() {
   // Agrega un tiempo de espera de 0.5 segundos usando setTimeout()
   const handleChangeSelector = (e) => {
     setYearChartSelector(e.target.value);
+    setLoadingChart(false);
   };
   const handleInputs = () => {
     if ((active === 0) | (active === 1)) {
@@ -323,7 +339,7 @@ function Taller1() {
       return (
         <div>
           <h2>Seleccione las fechas a desplegar</h2>
-          <select value={"2017"} onChange={handleChangeSelector}>
+          <select value={yearChartSelector} onChange={handleChangeSelector}>
             <option value={"2017"}>2017</option>
             <option value={"2019"}>2018</option>
             <option value={"2018"}>2018</option>
@@ -334,7 +350,12 @@ function Taller1() {
             <>Por Favor Espera mientas Carga</>
           ) : (
             <>
-              <ColumnChart data={data}></ColumnChart>
+              <div>
+                {data.map((item) => (
+                  <div>{item} tiem</div>
+                ))}
+              </div>
+              <ColumnChart data={data["2017"]}></ColumnChart>
               <p>
                 Para responder esta pregunta se insta al usuario a ver el
                 comportamiento mensual distribuido por años en las graficas
