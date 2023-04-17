@@ -9,7 +9,7 @@ import CustomDatePicker from "../components/datePicker/CustomDatePicker";
 import ColumnChart from "../components/charts/columnChart";
 function Taller1() {
   // Column chart     ___________________________________________________________________________________
-
+  const [yearChartSelector, setYearChartSelector] = "2017";
   const dataChart = [
     ["Meses ", "datos1", "datos2"],
     ["Febrero", 200, -200],
@@ -24,11 +24,11 @@ function Taller1() {
   const minValidDate = new Date("01/01/2017");
   const maxValidDate = new Date("01/01/2021");
   const [dateValidatior, setDateValidator] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [year, setYear] = useState("2023");
+  const [startDate, setStartDate] = useState(new Date("04/17/2017"));
+  const [endDate, setEndDate] = useState(new Date("04/17/2017"));
+  const [year, setYear] = useState("2017");
   const [month, setMoth] = useState("May");
-  const years = ["2017", "2018", "2019", "2020", "2021", "2022"];
+  const years = ["2017", "2018", "2019", "2020", "2021"];
   const months = [
     "January",
     "February",
@@ -44,7 +44,7 @@ function Taller1() {
     "December",
   ];
 
-  const [year2, setYear2] = useState("2023");
+  const [year2, setYear2] = useState("2017");
   const [month2, setMoth2] = useState("May");
 
   //_____________________________________________________________________________________________________
@@ -52,12 +52,12 @@ function Taller1() {
   var dir = "http://127.0.0.1:8000/getRequest";
 
   const links = [
-    "http://127.0.0.1:8000/getRequest/A",
-    "http://127.0.0.1:8000/getRequest/B",
-    "http://127.0.0.1:8000/getRequest/C",
-    "http://127.0.0.1:8000/getRequest/D",
-    "http://127.0.0.1:8000/getRequest/E",
-    "http://127.0.0.1:8000/getRequest/F",
+    "http://127.0.0.1:8000/getRequest/P1",
+    "http://127.0.0.1:8000/getRequest/P2",
+    "http://127.0.0.1:8000/getRequest/P1",
+    "http://127.0.0.1:8000/getRequest/P1",
+    "http://127.0.0.1:8000/getRequest/P1",
+    "http://127.0.0.1:8000/getRequest/P1",
     "http://127.0.0.1:8000/getRequest/F",
   ];
   const opctionName = ["BQ1", "BQ2", "BQ3", "BQ4", "BQ5", "PBQ1", "PBQ2"];
@@ -97,12 +97,17 @@ function Taller1() {
   const handleClick = (url) => {
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setData(json))
+      .then((json) => {
+        setData(json);
+        console.log(json);
+      })
       .catch((error) => console.error(error));
   };
 
   const buttonFunt = (index, url) => {
     handleClick(url);
+    setShowAnser(false);
+
     setDateValidator(false);
     handleIconClick(index);
   };
@@ -116,13 +121,50 @@ function Taller1() {
       endDate > minValidDate &&
       endDate < maxValidDate
     ) {
-      setDateValidator(true);
+      setShowAnser(true);
+      handleClick(links[active]);
     } else {
       setDateValidator(false);
     }
   };
-
+  const [showAnswer, setShowAnser] = useState(false);
+  const [loadingChart, setLoadingChart] = useState(true);
+  function miFuncion() {
+    console.log("Han pasado 0.5 segundos.");
+  }
   const handleAnswer = (data) => {
+    if (data != null) {
+      if (active === 0) {
+        if (showAnswer) {
+          return (
+            <div className="answer1">
+              {data}
+              {data["State"]}
+            </div>
+          );
+        }
+      }
+      if (active === 1) {
+        if (showAnswer) {
+          return (
+            <div className="answer2">
+              {data}
+              {data["State"]}
+            </div>
+          );
+        }
+      }
+      if (active === 2) {
+        setData(data[{ yearChartSelector }]);
+      }
+    }
+  };
+
+  // Agrega un tiempo de espera de 0.5 segundos usando setTimeout()
+  const handleChangeSelector = (e) => {
+    setYearChartSelector(e.target.value);
+  };
+  const handleInputs = () => {
     if ((active === 0) | (active === 1)) {
       return (
         <div className="col">
@@ -265,7 +307,10 @@ function Taller1() {
             <>
               <div className="Display">
                 {active === 0 ? (
-                  <>El estado con mas Barcos Es washington</>
+                  <>
+                    El estado con mas Barcos Es {data} - {data.State} con un
+                    numero de barcos {data.count}
+                  </>
                 ) : (
                   <>La Carga Mas transitada es la tipo 4</>
                 )}
@@ -277,16 +322,27 @@ function Taller1() {
     } else if (active === 2) {
       return (
         <div>
-          <ColumnChart data={dataChart}></ColumnChart>
+          <h2>Seleccione las fechas a desplegar</h2>
+          <select value={"2017"} onChange={handleChangeSelector}>
+            <option value={"2017"}>2017</option>
+            <option value={"2019"}>2018</option>
+            <option value={"2018"}>2018</option>
+            <option value={"2019"}>2019</option>
+            <option value={"2020"}>2020</option>
+          </select>
+          {loadingChart ? (
+            <>Por Favor Espera mientas Carga</>
+          ) : (
+            <>
+              <ColumnChart data={data}></ColumnChart>
+              <p>
+                Para responder esta pregunta se insta al usuario a ver el
+                comportamiento mensual distribuido por años en las graficas
+              </p>
+            </>
+          )}
         </div>
       );
-    }
-    return <div>{data}</div>;
-  };
-
-  const handleInputs = () => {
-    if (active === 0) {
-      return <div></div>;
     }
   };
   return (
@@ -313,7 +369,8 @@ function Taller1() {
         </div>
         <div className="display">
           <p>{bsQuestions[active]}</p>
-          {handleAnswer(JSON.stringify(data))}
+          {handleInputs()}
+          {handleAnswer(data)}
         </div>
       </div>
     </div>
