@@ -187,9 +187,40 @@ function Taller1() {
   const [showAnswer, setShowAnser] = useState(false);
   const [loadingChart, setLoadingChart] = useState(true);
   const [stateSelector, setStateSelector] = useState("");
+  const [yearChartSelector2, setYearChartSelector2] = useState("2017");
+  const [dataCombo, setDataCombo] = useState(null);
+  const [urlEffct, setUrlEffect] = useState("");
+
+  const handleStateSelector = (e) => {
+    setStateSelector(e.target.value);
+  };
+
+  const handleChangeSelectorWithFetch = (e) => {
+    setYearChartSelector2(e.target.value);
+    let u = links[active] + "/V1/" + yearChartSelector2;
+    console.log(u);
+    fetch(u)
+      .then((response) => response.json())
+      .then((json) => {
+        setDataCombo(json);
+        console.log(json);
+      });
+  };
+
+  useEffect(
+    () =>
+      fetch(urlEffct)
+        .then((response) => response.json())
+        .then((json) => {
+          setDataCombo(json);
+          console.log(json);
+        }),
+    []
+  );
   function miFuncion() {
     console.log("Han pasado 0.5 segundos.");
   }
+
   const handleAnswer = (data) => {
     if (data != null) {
       data = JSON.parse(data);
@@ -244,14 +275,27 @@ function Taller1() {
         }
       }
       if (active === 2) {
-        console.log("hola");
-        console.log(data);
         const d = data[yearChartSelector];
-
         return (
-          <div className="map-container">
-            <ColumnChart data={d}></ColumnChart>
-          </div>
+          <>
+            <div className="map-container">
+              <ColumnChart data={d}></ColumnChart>
+            </div>
+            <h2>2020 en cifras con respecto a los demas años</h2>
+            <select
+              value={yearChartSelector2}
+              onChange={handleChangeSelectorWithFetch}
+            >
+              <option value={"2017"}>2017</option>
+              <option value={"2018"}>2018</option>
+              <option value={"2019"}>2019</option>
+            </select>
+            {dataCombo != null && (
+              <div className="map-container">
+                <ColumnChart data={JSON.parse(dataCombo)}></ColumnChart>
+              </div>
+            )}
+          </>
         );
       }
       if (active == 3) {
@@ -382,9 +426,7 @@ function Taller1() {
     setYearChartSelector(Number(e.target.value));
     setLoadingChart(false);
   };
-  const handleStateSelector = (e) => {
-    setStateSelector(e.target.value);
-  };
+
   const handleInputs = () => {
     if ((active === 0) | (active === 1)) {
       return (
@@ -546,7 +588,6 @@ function Taller1() {
           <h2>Seleccione las fechas a desplegar</h2>
           <select value={yearChartSelector} onChange={handleChangeSelector}>
             <option value={"2017"}>2017</option>
-            <option value={"2019"}>2018</option>
             <option value={"2018"}>2018</option>
             <option value={"2019"}>2019</option>
             <option value={"2020"}>2020</option>
