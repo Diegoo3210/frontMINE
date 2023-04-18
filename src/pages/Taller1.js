@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Taller1.css";
 import CustomDatePicker from "../components/datePicker/CustomDatePicker";
 import ColumnChart from "../components/charts/columnChart";
+import GeoChart from "../components/charts/GeoChart";
 function Taller1() {
   // Column chart     ___________________________________________________________________________________
   const [yearChartSelector, setYearChartSelector] = useState(2017);
@@ -68,8 +69,8 @@ function Taller1() {
     "¿Qué tanto afectó la pandemia al tráfico de embarcaciones teniendo en cuenta el número de embarcaciones por mes en cada estado en años anteriores?",
     "¿Cómo es la distribución geográfica, en un periodo dado, de las embarcaciones?",
     "¿Existe alguna relación entre el día de la semana y el tipo de carga en cada estado?¿La relación cambia por año?",
-    "Personalizar ",
-    "Personalizar 2 ",
+    "¿Cuál es la bandera más común por estado, en un periodo dado?",
+    "¿Cuál es el tipo de carga más común por bandera, en un periodo dado? ",
   ];
   const iconLinks = document.querySelectorAll(".icon-bar a");
 
@@ -93,6 +94,7 @@ function Taller1() {
     setActive(index);
   };
   const [data, setData] = useState(null);
+
   const handleClick = (url) => {
     fetch(url)
       .then((response) => response.json())
@@ -103,6 +105,7 @@ function Taller1() {
       })
       .catch((error) => console.error(error));
   };
+
   useEffect(() => {
     handleClick();
   }, []);
@@ -110,8 +113,6 @@ function Taller1() {
   const buttonFunt = (index, url) => {
     handleClick(url);
     setShowAnser(false);
-
-    setDateValidator(false);
     handleIconClick(index);
   };
 
@@ -194,6 +195,82 @@ function Taller1() {
         console.log(data);
         const d = data[yearChartSelector];
         return <ColumnChart data={d}></ColumnChart>;
+      }
+      if (active == 3) {
+        console.log("B4");
+        console.log(data);
+
+        return (
+          <>
+            <div className="map-container">
+              <GeoChart data={data}></GeoChart>
+            </div>
+            <p>
+              Un geochart de tipo heatMap puede ser una herramienta valiosa para
+              visualizar la distribución geográfica de las embarcaciones en un
+              período de tiempo específico. Esta visualización utiliza colores
+              para resaltar las áreas con mayor y menor cantidad de
+              embarcaciones, lo que permite a los usuarios identificar patrones
+              y tendencias en la distribución de la flota marítima. Dado que la
+              cantidad de datos puede ser bastante grande, es importante
+              establecer un período de tiempo fijo para la visualización. Esto
+              permitirá a los usuarios enfocarse en un período específico y
+              evitar sobrecargar la visualización con demasiada información.
+            </p>
+          </>
+        );
+      }
+      if (active === 5) {
+        if (true) {
+          return (
+            <div className="answer6">
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Bandera</th>
+                      <th>EStado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.State}</td>
+                        <td>{item.Flag}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div></div>
+            </div>
+          );
+        }
+      }
+      if (active === 6) {
+        return (
+          <div className="answer7">
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bandera</th>
+                    <th>Tipo de Carga</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.Flag}</td>
+                      <td>{item.Cargo}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div></div>
+          </div>
+        );
       }
     }
   };

@@ -17,6 +17,7 @@
   background-color: #555; /* Dark-grey background */
   overflow: auto; /* Overflow due to float */
   border-radius: 10px;
+  box-shadow: 0px 4px 4px #0000004c;
   position: relative;
 
   
@@ -116,4 +117,10 @@ td{
 
 tr:hover{
   background-color: #cbcbcb;
+}
+.map-container{
+  border-radius: 15px;
+  height: 400px;
+  box-shadow: 0px 4px 4px #00000040;
+  overflow: hidden;
 }
