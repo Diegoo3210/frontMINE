@@ -9,7 +9,7 @@ import CustomDatePicker from "../components/datePicker/CustomDatePicker";
 import ColumnChart from "../components/charts/columnChart";
 function Taller1() {
   // Column chart     ___________________________________________________________________________________
-  const [yearChartSelector, setYearChartSelector] = useState("2017");
+  const [yearChartSelector, setYearChartSelector] = useState(2017);
   const dataChart = [
     ["Meses ", "datos1", "datos2"],
     ["Febrero", 200, -200],
@@ -57,8 +57,8 @@ function Taller1() {
     "http://127.0.0.1:8000/getRequest/P3",
     "http://127.0.0.1:8000/getRequest/P4",
     "http://127.0.0.1:8000/getRequest/P5",
-    "http://127.0.0.1:8000/getRequest/P1",
-    "http://127.0.0.1:8000/getRequest/F",
+    "http://127.0.0.1:8000/getRequest/P6",
+    "http://127.0.0.1:8000/getRequest/P7",
   ];
   const opctionName = ["BQ1", "BQ2", "BQ3", "BQ4", "BQ5", "PBQ1", "PBQ2"];
 
@@ -137,24 +137,27 @@ function Taller1() {
   }
   const handleAnswer = (data) => {
     if (data != null) {
+      data = JSON.parse(data);
       if (active === 0) {
         if (showAnswer) {
           return (
             <>
-              <table>
-                <thead>
-                  <tr>
-                    <td>Estado</td>
-                    <td>Botes</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{JSON.parse(data).State}</td>
-                    <td>{JSON.parse(data).count}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Estados</th>
+                      <th>Num Barcos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{data["State"]}</td>
+                      <td>{data.count}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </>
           );
         }
@@ -163,21 +166,37 @@ function Taller1() {
         if (showAnswer) {
           return (
             <div className="answer2">
-              {data}
-              {data[10]}
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Estados</th>
+                      <th>Num Barcos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{data["State"]}</td>
+                      <td>{data.count}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           );
         }
       }
       if (active === 2) {
-        console.log(data[yearChartSelector]);
+        console.log("hola");
+        console.log(data);
+        const d = data[yearChartSelector];
+        return <ColumnChart data={d}></ColumnChart>;
       }
     }
   };
-
   // Agrega un tiempo de espera de 0.5 segundos usando setTimeout()
   const handleChangeSelector = (e) => {
-    setYearChartSelector(e.target.value);
+    setYearChartSelector(Number(e.target.value));
     setLoadingChart(false);
   };
   const handleInputs = () => {
@@ -350,12 +369,6 @@ function Taller1() {
             <>Por Favor Espera mientas Carga</>
           ) : (
             <>
-              <div>
-                {data.map((item) => (
-                  <div>{item} tiem</div>
-                ))}
-              </div>
-              <ColumnChart data={data["2017"]}></ColumnChart>
               <p>
                 Para responder esta pregunta se insta al usuario a ver el
                 comportamiento mensual distribuido por años en las graficas
@@ -392,6 +405,7 @@ function Taller1() {
           <p>{bsQuestions[active]}</p>
           {handleInputs()}
           {handleAnswer(data)}
+          <div className="height-50"></div>
         </div>
       </div>
     </div>
