@@ -131,8 +131,62 @@ function Taller1() {
       setDateValidator(false);
     }
   };
+  const estados_usa = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
+
   const [showAnswer, setShowAnser] = useState(false);
   const [loadingChart, setLoadingChart] = useState(true);
+  const [stateSelector, setStateSelector] = useState("");
   function miFuncion() {
     console.log("Han pasado 0.5 segundos.");
   }
@@ -185,7 +239,6 @@ function Taller1() {
                   </tbody>
                 </table>
               </div>
-              <div>El Estado con ma</div>
             </div>
           );
         }
@@ -194,7 +247,12 @@ function Taller1() {
         console.log("hola");
         console.log(data);
         const d = data[yearChartSelector];
-        return <ColumnChart data={d}></ColumnChart>;
+
+        return (
+          <div className="map-container">
+            <ColumnChart data={d}></ColumnChart>
+          </div>
+        );
       }
       if (active == 3) {
         console.log("B4");
@@ -218,6 +276,51 @@ function Taller1() {
               evitar sobrecargar la visualización con demasiada información.
             </p>
           </>
+        );
+      }
+      if (active === 4) {
+        return (
+          <div>
+            <h2>Seleccione El estado a desplegar</h2>
+            <select value={stateSelector} onChange={handleStateSelector}>
+              {estados_usa.map((estado) => (
+                <option value={estado}>{estado}</option>
+              ))}
+            </select>
+            {stateSelector != "" ? (
+              <>
+                <div className="answer2">
+                  <div>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Estado</th>
+                          <th>Día</th>
+                          <th>Tipo de Carga</th>
+                          <th>Relacion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.map(
+                          (item, index) =>
+                            item.State === stateSelector && (
+                              <tr key={index}>
+                                <td>{item.State}</td>
+                                <td>{item.day}</td>
+                                <td>{item.Cargo}</td>
+                                <td>{item.relacion}</td>
+                              </tr>
+                            )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         );
       }
       if (active === 5) {
@@ -278,6 +381,9 @@ function Taller1() {
   const handleChangeSelector = (e) => {
     setYearChartSelector(Number(e.target.value));
     setLoadingChart(false);
+  };
+  const handleStateSelector = (e) => {
+    setStateSelector(e.target.value);
   };
   const handleInputs = () => {
     if ((active === 0) | (active === 1)) {
@@ -445,16 +551,7 @@ function Taller1() {
             <option value={"2019"}>2019</option>
             <option value={"2020"}>2020</option>
           </select>
-          {loadingChart ? (
-            <>Por Favor Espera mientas Carga</>
-          ) : (
-            <>
-              <p>
-                Para responder esta pregunta se insta al usuario a ver el
-                comportamiento mensual distribuido por años en las graficas
-              </p>
-            </>
-          )}
+          {loadingChart && <h3>Por Favor Espera mientas Carga</h3>}
         </div>
       );
     }
