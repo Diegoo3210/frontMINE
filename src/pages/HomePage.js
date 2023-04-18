@@ -5,6 +5,7 @@ import "./HomePage.css";
 import PersonCard from "../components/personCard/PersonCard";
 import uni from "../asset/logo-uniandes.png";
 import diego_photo from "../asset/DiegoPhoto.png";
+import juli_photo from "../asset/Juli.jpg";
 import React from "react";
 
 function HomePage() {
@@ -33,7 +34,7 @@ function HomePage() {
         <h3>Sobre Los estudiantes</h3>
         <div className="row">
           <PersonCard
-            image={uni}
+            image={juli_photo}
             name={"Juliana Galeano"}
             description={"Hola soy Juliana"}
           ></PersonCard>
