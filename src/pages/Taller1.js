@@ -171,17 +171,20 @@ function Taller1() {
                   <thead>
                     <tr>
                       <th>Estados</th>
-                      <th>Num Barcos</th>
+                      <th>Tipo de Carga</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>{data["State"]}</td>
-                      <td>{data.count}</td>
-                    </tr>
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.State}</td>
+                        <td>{item.Cargo}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
+              <div>El Estado con ma</div>
             </div>
           );
         }
