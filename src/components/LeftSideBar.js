@@ -32,6 +32,15 @@ function LeftSideBar() {
               </div>
             </a>
           </li>
+
+          <li>
+            <a className="link" href="/Taller2">
+              <div className="groupButton">
+                <img className="icono" src={logo} alt="default" />
+                <div className="BtnTittle">Taller2</div>
+              </div>
+            </a>
+          </li>
         </ul>
       </nav>{" "}
     </div>

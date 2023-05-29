@@ -1,0 +1,74 @@
+.row{
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+.col{
+  position: relative;
+  
+}
+
+.icon-bar {
+  width: fit-content; /* Full-width */
+  background-color: #555; /* Dark-grey background */
+  overflow: auto; /* Overflow due to float */
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px #0000004c;
+  position: relative;
+
+  
+}
+
+.icon-bar button {
+  float: left; /* Float links side by side */
+  text-align: center; /* Center-align text */
+  width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
+  padding: 12px 0; /* Some top and bottom padding */
+  transition: all 0.3s ease; /* Add transition for hover effects */
+  color: white; /* White text color */
+  font-size: 24px; /* Increased font size */
+}
+
+.icon-bar button:hover {
+  background-color: #000; /* Add a hover color */
+}
+
+.icon-bar span {
+  float: left; /* Float links side by side */
+  text-align: center; /* Center-align text */
+  width: fit-content; /* Equal width (5 icons with 20% width each = 100%) */
+  padding: 12px 0; /* Some top and bottom padding */
+  transition: all 0.3s ease; /* Add transition for hover effects */
+  color: white; /* White text color */
+  font-size: 24px; /* Increased font size */
+  cursor: pointer;
+}
+
+.icon-bar span:hover {
+  background-color: lightgray; /* Add a hover color */
+}
+.active {
+  background-color: #5a57ff; /* Add an active/current color */
+}
+
+.btn-tittle{
+  width: 100px;
+}
+.icon-bar-wrapper{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.button:hover {
+  background-color: #0052ab;
+}
+
+.centered{
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
